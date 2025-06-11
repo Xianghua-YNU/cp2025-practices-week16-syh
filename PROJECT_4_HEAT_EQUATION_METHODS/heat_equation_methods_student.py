@@ -137,7 +137,7 @@ class HeatEquationSolver:
         # 记录计算时间
         results['computation_time'] = time.time() - start_time
         results['stability_parameter'] = r
-        results['method'] = 'explicit'  # 添加方法标识
+        results['method'] = 'explicit'
         
         return results
     
@@ -216,7 +216,7 @@ class HeatEquationSolver:
         # 记录计算时间
         results['computation_time'] = time.time() - start_time
         results['stability_parameter'] = r
-        results['method'] = 'implicit'  # 添加方法标识
+        results['method'] = 'implicit'
         
         return results
     
@@ -304,7 +304,7 @@ class HeatEquationSolver:
         # 记录计算时间
         results['computation_time'] = time.time() - start_time
         results['stability_parameter'] = r
-        results['method'] = 'crank_nicolson'  # 添加方法标识
+        results['method'] = 'crank_nicolson'
         
         return results
     
@@ -391,7 +391,7 @@ class HeatEquationSolver:
             'solutions': solutions,
             'computation_time': computation_time,
             'method': method,
-            'solver_method': 'solve_ivp'  # 添加方法标识
+            'solver_method': 'solve_ivp'
         }
         
         return results
