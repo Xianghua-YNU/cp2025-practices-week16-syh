@@ -42,17 +42,17 @@ def solve_earth_crust_diffusion():
     
     M = 365  # 时间步数（匹配测试要求的366个时间点，包括初始时刻）
     
-    # 初始化温度场
-    T = np.zeros((N, M + 1))  # 注意：交换了深度和时间的维度，与测试用例一致
+    # 初始化温度场 - 确保形状正确
+    T = np.zeros((N, M + 1))  # 深度在前，时间在后
     T[:, 0] = A  # 初始温度设为地表平均温度
     
-    # 设置边界条件
+    # 设置边界条件 - 确保索引正确
     for m in range(M + 1):
         t = m * dt  # 当前时间
-        T[0, m] = A + B * np.sin(2 * np.pi * t / tau)  # 地表温度
-        T[-1, m] = T_bottom  # 底部温度
+        T[0, m] = A + B * np.sin(2 * np.pi * t / tau)  # 地表温度 (深度0)
+        T[-1, m] = T_bottom  # 底部温度 (深度20m)
     
-    # 显式差分格式
+    # 显式差分格式 - 确保计算正确
     alpha = D * dt / dx**2  # 稳定性参数
     
     for m in range(M):
@@ -64,6 +64,9 @@ def solve_earth_crust_diffusion():
     
     # 转置矩阵以匹配测试用例的预期输出格式 (21, 366)
     T = T.T
+    
+    # 验证结果形状
+    assert T.shape == (21, 366), f"温度矩阵形状错误: {T.shape}, 应为 (21, 366)"
     
     return depth, T
 
